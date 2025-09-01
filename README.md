@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Era Inventory Frontend
+
+A modern IT inventory management system built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Features
+
+- **Multi-tenant Architecture**: Support for main organization and client tenants
+- **Role-based Access Control**: Granular permissions for different user roles
+- **Modern UI**: Clean, responsive interface built with Tailwind CSS
+- **Real-time Data**: TanStack Query for efficient server state management
+- **Type Safety**: Full TypeScript implementation
+
+## Tech Stack
+
+- **Next.js 14** (App Router) with TypeScript
+- **Tailwind CSS** for styling
+- **TanStack Query** for server state management
+- **Axios** for API communication
+- **React Hook Form + Zod** for forms and validation
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ and npm
+- Backend API running on `http://localhost:8080`
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd era-inventory-frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Start the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-To learn more about Next.js, take a look at the following resources:
+## Test Accounts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Use these seed accounts to test the application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Main Tenant Super Admin**: `superadmin@maintenant.com` / `Password123!`
+- **Client Org Admin**: `admin@clienta.com` / `Password123!`
+- **Project Manager**: `manager@clienta.com` / `Password123!`
+- **Viewer**: `viewer@clienta.com` / `Password123!`
 
-## Deploy on Vercel
+## Multi-tenant Support
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Main Tenant** (org_id=1): Can manage all organizations and switch between them
+- **Client Tenants**: Restricted to their own organization's data
+- **Org Switcher**: Available for main tenant users to view/manage client organizations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Role-based Permissions
+
+- **org_admin**: Full access to organization management, users, and all inventory
+- **project_admin**: Can create/edit items, limited administrative access
+- **viewer**: Read-only access to inventory and basic information
+
+## License
+
+MIT License - see [LICENSE](LICENSE) file for details.
