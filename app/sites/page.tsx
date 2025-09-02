@@ -125,7 +125,7 @@ export default function SitesPage() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         currentPage={currentPage}
-        totalPages={sitesResponse?.pagination.total_pages || 1}
+        totalPages={sitesResponse?.pagination?.total_pages || 1}
         onPageChange={setCurrentPage}
         isLoading={isLoading}
         actions={(site) => (

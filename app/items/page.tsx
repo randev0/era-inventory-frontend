@@ -141,8 +141,17 @@ export default function ItemsPage() {
   const canEdit = claims && canEditItems(claims.roles);
   const canDelete = claims && canDeleteItems(claims.roles);
 
+
+
   return (
     <div className="space-y-6">
+      {/* Debug indicator */}
+      {(isEditModalOpen || isDeleteModalOpen) && (
+        <div className="fixed top-4 right-4 bg-red-500 text-white p-2 rounded z-50">
+          Modal State: Edit={isEditModalOpen ? 'OPEN' : 'CLOSED'}, Delete={isDeleteModalOpen ? 'OPEN' : 'CLOSED'}
+        </div>
+      )}
+      
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Items</h1>
@@ -170,7 +179,7 @@ export default function ItemsPage() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         currentPage={currentPage}
-        totalPages={itemsResponse?.pagination.total_pages || 1}
+        totalPages={itemsResponse?.pagination?.total_pages || 1}
         onPageChange={setCurrentPage}
         isLoading={isLoading}
         actions={(item) => (

@@ -128,7 +128,7 @@ export default function VendorsPage() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         currentPage={currentPage}
-        totalPages={vendorsResponse?.pagination.total_pages || 1}
+        totalPages={vendorsResponse?.pagination?.total_pages || 1}
         onPageChange={setCurrentPage}
         isLoading={isLoading}
         actions={(vendor) => (

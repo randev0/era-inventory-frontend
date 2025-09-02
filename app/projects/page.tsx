@@ -126,7 +126,7 @@ export default function ProjectsPage() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         currentPage={currentPage}
-        totalPages={projectsResponse?.pagination.total_pages || 1}
+        totalPages={projectsResponse?.pagination?.total_pages || 1}
         onPageChange={setCurrentPage}
         isLoading={isLoading}
         actions={(project) => (

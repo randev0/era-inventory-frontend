@@ -16,9 +16,20 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 // JWT decode function
-function parseJwt(token: string): JWTClaims | null {
+function parseJwt(token: string | null | undefined): JWTClaims | null {
+  if (!token || typeof token !== 'string') {
+    console.error('Invalid token provided to parseJwt:', token);
+    return null;
+  }
+
   try {
-    const base64Url = token.split('.')[1];
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      console.error('JWT token does not have 3 parts:', token);
+      return null;
+    }
+
+    const base64Url = parts[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(
       atob(base64)
@@ -28,7 +39,7 @@ function parseJwt(token: string): JWTClaims | null {
     );
     return JSON.parse(jsonPayload);
   } catch (error) {
-    console.error('Error parsing JWT:', error);
+    console.error('Error parsing JWT:', error, 'Token:', token);
     return null;
   }
 }
@@ -70,10 +81,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = (newToken: string, newUser: User) => {
+    console.log('Login called with token:', newToken ? `${newToken.substring(0, 20)}...` : 'null');
+    console.log('Login called with user:', newUser);
+
+    if (!newToken) {
+      throw new Error('No token provided');
+    }
+
     const parsedClaims = parseJwt(newToken);
     
     if (!parsedClaims) {
-      throw new Error('Invalid token');
+      throw new Error('Invalid token format - could not parse JWT claims');
     }
 
     localStorage.setItem('era_token', newToken);

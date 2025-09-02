@@ -173,7 +173,7 @@ export default function OrganizationsPage() {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         currentPage={currentPage}
-        totalPages={orgsResponse?.pagination.total_pages || 1}
+        totalPages={orgsResponse?.pagination?.total_pages || 1}
         onPageChange={setCurrentPage}
         isLoading={isLoading}
         actions={(org) => (
